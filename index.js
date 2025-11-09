@@ -10,7 +10,7 @@ const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
 const app = express();
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://sushanksinha.netlify.app', 'https://api.spotify.com/v1', 'https://accounts.spotify.com', 'https://spotify-assessment.onrender.com'],
+  origin: ['http://localhost:3000', 'https://sushanksinha.netlify.app', 'https://api.spotify.com/v1', 'https://accounts.spotify.com'],
   methods: ['GET', 'POST', 'PUT'],
   credentials: true,
 };
