@@ -40,8 +40,8 @@ const getValidAccessToken = async (req, res) => {
     // Set new access token cookie
     res.cookie('access_token', tokenData.access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: true,
+      sameSite: 'none',
       maxAge: tokenData.expires_in * 1000
     });
 
@@ -49,8 +49,8 @@ const getValidAccessToken = async (req, res) => {
     if (tokenData.refresh_token) {
       res.cookie('refresh_token', tokenData.refresh_token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        secure: true,
+        sameSite: 'none',
         maxAge: 30 * 24 * 60 * 60 * 1000
       });
     }
