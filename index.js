@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use((req, res, next) => {
   const origin = req.headers.origin;
 
-  if (corsOptions.includes(origin)) {
+  if (corsOptions.origin.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
 
