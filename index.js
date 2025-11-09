@@ -68,7 +68,7 @@ app.get('/spotify/callback', async (req, res) => {
     });
     
     // Redirect to your frontend or success page
-    res.redirect('/spotify');
+    res.redirect(`${REDIRECT_URI}`);
   } catch (error) {
     console.error('Auth error:', error.response?.data || error.message);
     res.status(500).json({ error: 'Authentication failed' });
