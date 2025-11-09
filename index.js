@@ -2,15 +2,21 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const axios = require('axios');
 const querystring = require('querystring');
+const cors = require('cors');
 const spotifyRouter = require('./routes/spotify.routes');
-
-const app = express();
-
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI;
+const app = express();
+
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://sushanksinha.netlify.app'],
+  methods: ['GET', 'POST', 'PUT'],
+  credentials: true,
+};
 
 // Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -27,7 +33,7 @@ app.get('/login', (req, res) => {
 });
 
 // Callback route - handles authorization code exchange
-app.get('/callback', async (req, res) => {
+app.get('/spotify/callback', async (req, res) => {
   const code = req.query.code;
   
   try {
