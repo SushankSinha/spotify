@@ -20,6 +20,25 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+
+  if (corsOptions.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  next();
+});
+
 // Login route - redirects to Spotify authorization
 app.get('/login', (req, res) => {
   const scope = 'user-top-read user-read-currently-playing user-follow-read user-modify-playback-state user-read-playback-state';
